@@ -1,6 +1,7 @@
 import AWS from 'aws-sdk';
 import dotenv from 'dotenv';
 import { isValidPhoneNumber } from '../helpers/validatePhoneNumber';
+import logger from './loggerService';
 
 dotenv.config();
 
@@ -33,12 +34,13 @@ export const sendSMS = async (phoneNumber: string, message: string): Promise<str
     };
 
     try {
+        logger.info(`Enviando mensagem para ${phoneNumber}`);
         const result = await sns.publish(params).promise();
-        console.log(`Mensagem enviada ID: ${result.MessageId}`);
+        logger.info(`Mensagem enviada ID: ${result.MessageId}`);
 
         return result.MessageId!;
     } catch(error){
-        console.error('Erro ao enviar mensagem: ', error);
+        logger.error(`Erro ao enviar mensagem para ${phoneNumber}: ${error}`);
         throw error;
     }
 };

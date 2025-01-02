@@ -1,4 +1,5 @@
 import { sendSMS } from './services/snsService';
+import logger from './services/loggerService';
 
 const run = async () => {
   const phoneNumber = '+5511999998888'; 
@@ -6,9 +7,9 @@ const run = async () => {
 
   try {
     const messageId = await sendSMS(phoneNumber, message);
-    console.log(`Mensagem enviada com ID: ${messageId}`);
+    logger.info(`Mensagem enviada com ID: ${messageId}`);
   } catch (error) {
-    console.error('Erro ao enviar mensagem:', error);
+    logger.error(`Erro: ${error}`);
   }
 };
 
