@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node -r dotenv/config dist/index.js"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +15,7 @@
     "typescript": "^5.7.2"
   },
   "dependencies": {
-    "aws-sdk": "^2.1692.0"
+    "aws-sdk": "^2.1692.0",
+    "dotenv": "^16.4.7"
   }
 }
