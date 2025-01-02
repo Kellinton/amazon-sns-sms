@@ -1,5 +1,6 @@
 import AWS from 'aws-sdk';
 import dotenv from 'dotenv';
+import { isValidPhoneNumber } from '../helpers/validatePhoneNumber';
 
 dotenv.config();
 
@@ -22,6 +23,10 @@ const sns = new AWS.SNS({
  */
 
 export const sendSMS = async (phoneNumber: string, message: string): Promise<string> => {
+    if(!isValidPhoneNumber(phoneNumber)){
+        throw new Error('O número não está no formato E.164');
+    }
+
     const params = {
         Message: message,
         PhoneNumber: phoneNumber,
